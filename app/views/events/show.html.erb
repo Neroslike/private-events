@@ -1,0 +1,24 @@
+<%= link_to "Home", root_path %>
+<h1><%= @event.title %></h1>
+<p>Date: <%= @event.date %></p>
+<p><%= @event.description %></p>
+<p>Location: <%= @event.location %></p>
+<p>By: <%= User.find_by(id: @event.user_id).username %></p>
+<% if current_user != @event.creator && !@event.attendees.include?(current_user) %>
+  <%= link_to "Attend", create_attending_event_path(user_id: current_user.id, event_id: @event.id), data: {'turbo-method': :post} %>
+<% else %>
+  <p>You have registered for this event</p>
+  <%= link_to 'Cancel attendance', event_attendee_path(user_id: current_user.id, event_id: @event.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+<% end %>
+<% if current_user == @event.creator %>
+  <%= link_to 'Edit', edit_event_path(@event) %>
+  <%= link_to 'Delete', event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+<% end %>
+<div>
+  <h5>People who is attending:</h5>
+  <ul>
+    <% @event.attendees.each do |a| %>
+      <li><%= a.username %></li>
+    <% end %>
+  </ul>
+</div>

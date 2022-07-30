@@ -1,0 +1,5 @@
+<h1>Update event</h1>
+<%= link_to "Home", root_path %>
+<%= button_to "Logout", destroy_user_session_path, method: :delete  %>
+
+<%= render 'event_form', event: @event %>

@@ -1,0 +1,28 @@
+<h1><%= @user.email %> Posts</h1>
+
+<% @user.events.each do |event| %>
+  <ul>
+    <li>
+      <h5><%= event.title %></h5>
+      <p>Date: <%= event.date %></p>
+      <p><%= event.description %></p>
+      <p>Location: <%= event.location %></p>
+    </li>
+  </ul>
+<% end %>
+<div>
+  <h5>This user is attending to the following events:</h5>
+  <ul>
+    <% @user.attended_events.where('date > ?', Time.current).each do |a| %>
+      <li><%= link_to a.title, a %></li>
+    <% end %>
+  </ul>
+</div>
+<div>
+  <h5>This user has attended to the following events:</h5>
+  <ul>
+    <% @user.attended_events.where('date < ?', Time.current).each do |a| %>
+      <li><%= link_to a.title, a %></li>
+    <% end %>
+  </ul>
+</div>

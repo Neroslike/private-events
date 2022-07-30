@@ -1,0 +1,17 @@
+<%= form_with model: event do |f| %>
+  <ul>
+    <% event.errors.each do |error| %>
+      <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+
+  <%= f.label :title, 'Title' %>
+  <%= f.text_field :title %></br></br>
+  <%= f.label :description, 'Description' %>
+  <%= f.text_area :description %></br></br>
+  <%= f.label :date, 'Date' %>
+  <%= f.date_field :date %></br></br>
+  <%= f.label :location, 'Location' %>
+  <%= f.text_field :location %></br></br>
+  <%= f.submit %>
+<% end %>

@@ -1,0 +1,42 @@
+<h1>Current events</h1>
+<% if user_signed_in? %>
+  <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+  <%= link_to "Create new Event", new_event_path %>
+<% else %>
+  <%= link_to "Login", new_user_session_path %>
+<% end %>
+<% if user_signed_in? %>
+  <h2>Greetings, <%= current_user.username %></h2>
+<% else %>
+  <h2>Not logged in</h2>
+<% end %>
+
+<div>
+  <h3>Upcoming events</h3>
+  <% @events.upcoming.each do |e| %>
+    <ul>
+      <li>
+        <h5><%= link_to e.title, e %></h5>
+        <p>Date: <%= e.date %></p>
+        <p><%= e.description %></p>
+        <p>Location: <%= e.location %></p>
+        <p>By: <%= link_to e.creator.email, e.creator %></p>
+      </li>
+    </ul>
+  <% end %>
+</div>
+
+<div>
+  <h3>Past events</h3>
+  <% @events.past.each do |e| %>
+    <ul>
+      <li>
+        <h5><%= link_to e.title, e %></h5>
+        <p>Date: <%= e.date %></p>
+        <p><%= e.description %></p>
+        <p>Location: <%= e.location %></p>
+        <p>By: <%= link_to e.creator.email, e.creator %></p>
+      </li>
+    </ul>
+  <% end %>
+</div>
